@@ -1,16 +1,17 @@
 {
   "name": "baas-client",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.2",
+  "description": "BaaS client for my backend service",
+  "main": "src/client.js",
   "scripts": {
     "build": "parcel build src/client.js --no-source-maps --out-file baas-client.min.js",
     "dev": "parcel dev/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "wu-xuesong@qq.com",
+  "license": "MIT",
+  "repository": "wxs77577/baas-client",
   "devDependencies": {
     "axios": "^0.18.0",
     "inflection": "^1.12.0",
