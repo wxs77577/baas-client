@@ -1,10 +1,10 @@
 {
   "name": "baas-client",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "BaaS client for my backend service",
-  "main": "src/client.js",
+  "main": "dist/client.min.js",
   "scripts": {
-    "build": "parcel build src/client.js --no-source-maps --out-file baas-client.min.js",
+    "build": "parcel build src/client.js --no-source-maps --out-file client.min.js",
     "dev": "parcel dev/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
