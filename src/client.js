@@ -1,5 +1,5 @@
 import Model from './model'
-import Drivers from './drivers/*/*'
+import drivers from './drivers/index'
 
 export default class BaasClient {
   constructor(options) {
@@ -11,21 +11,40 @@ export default class BaasClient {
     this.initDrivers()
   }
 
-  initDrivers(drivers) {
+  initDrivers() {
     const {
       http = 'axios',
       storage = 'localStorage',
       event = 'local'
-    } = this.options.drivers
-    this.$http = Drivers.http[http + '.js'].default(this)
-    this.$storage = Drivers.storage[storage + '.js'].default(this)
-    this.$event = Drivers.event[event + '.js'].default(this)
+    } = this.options.drivers || {}
+    this.$http = drivers.http[http](this)
+    this.$storage = drivers.storage[storage](this)
+    this.$event = drivers.event[event](this)
   }
 
   addDriver(key, instance) {
     this['$' + key] = instance
   }
-
+  /**
+   * Add an event listener
+   * @param {String} eventName Name of the event
+   * @param {Function} handler Function will be executed when the event is triggered.
+   */
+  on(eventName, handler) {
+    return this.$event.on(eventName, handler)
+  }
+  /**
+   * Trigger an event with some data
+   * @param {String} eventName Name of the event
+   * @param {any} data data send to the event handler
+   */
+  emit(eventName, data) {
+    return this.$event.emit(eventName, data)
+  }
+  /**
+   * 
+   * @param {Object} params Post data for login api
+   */
   login(params) {
     return this.$http.post('login', params).then(res => {
       const { data } = res
@@ -34,13 +53,7 @@ export default class BaasClient {
       return res
     })
   }
-  on(eventName, handler) {
-    return this.$event.on(eventName, handler)
-  }
-  emit(eventName, data) {
-    return this.$event.emit(eventName, data)
-  }
-
+  
   logout() {
     return this.setStorage(this.options.authTokenKey, null)
   }
@@ -64,4 +77,8 @@ export default class BaasClient {
   model(name) {
     return this.resource(name)
   }
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = BaasClient
 }

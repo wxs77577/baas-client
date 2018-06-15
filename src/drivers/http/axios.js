@@ -3,7 +3,10 @@
  * @param client instace of BaasClient
  */
 export default client => {
-  const axios = client.options.axios || (window && window.axios)
+  let axios = client.options.axios
+  if (!axios && typeof window !== 'undefined' && window.axios) {
+    axios = window.axios
+  }
   const http = axios.create({
     baseURL: client.options.baseURL
   })

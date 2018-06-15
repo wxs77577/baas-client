@@ -1,10 +1,10 @@
 {
   "name": "baas-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "BaaS client for my backend service",
   "main": "dist/client.min.js",
   "scripts": {
-    "build": "parcel build src/client.js --no-source-maps --out-file client.min.js",
+    "build": "parcel build src/client.js --no-source-maps --out-file client.min.js --global BaasClient",
     "dev": "parcel dev/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +14,8 @@
   "repository": "wxs77577/baas-client",
   "devDependencies": {
     "axios": "^0.18.0",
+    "babel-preset-env": "^1.7.0",
     "inflection": "^1.12.0",
-    "parcel-bundler": "^1.8.1"
+    "parcel": "1.8.0"
   }
 }
