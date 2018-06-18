@@ -1,5 +1,5 @@
 import Model from './model'
-import drivers from './drivers/index'
+import drivers from './drivers/*/*.js'
 
 export default class BaasClient {
   constructor(options) {
@@ -17,9 +17,9 @@ export default class BaasClient {
       storage = 'localStorage',
       event = 'local'
     } = this.options.drivers || {}
-    this.$http = drivers.http[http](this)
-    this.$storage = drivers.storage[storage](this)
-    this.$event = drivers.event[event](this)
+    this.$http = drivers.http[http].default(this)
+    this.$storage = drivers.storage[storage].default(this)
+    this.$event = drivers.event[event].default(this)
   }
 
   addDriver(key, instance) {

@@ -4,10 +4,6 @@ import axios from 'axios'
 const client = new BaasClient({
   baseURL: 'http://localhost:5555/admin/api/',
   axios: axios,
-  drivers: {
-    http: 'axios',
-  },
-  authTokenKey: 'token'
 })
 // client.login({
 //   username: 'admin',
@@ -18,7 +14,8 @@ const client = new BaasClient({
 //   console.log('error', ctx.response.data)
 // })
 
-client.on('response.error', ({ status, data }) => {
+client.on('response.error', (res) => {
+  const { status, data } = res || {}
   switch(status) {
     case 401: 
       console.log('Error: Login required')
@@ -41,7 +38,7 @@ function main() {
     })
   })
 }
-main()
+// main()
 // Course.fetch({ page: 4 }).then(({ data }) => {
 //   console.log(JSON.stringify(data.data, null, 2))
 // })
